@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-import { username, password } from '../test/test-client';
+import { password, username } from '../test/test-client';
 
 async function delay(ms: number) {
   return new Promise(resolve => {
@@ -21,7 +21,8 @@ async function main() {
     // @ts-expect-error
     return document.querySelectorAll('[title="Plex Authentication"]')[0].attributes.src.value;
   });
-  await page.goto(authPage);
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+  await page.goto(`https://app.plex.tv${authPage}`);
   let step = 1;
   console.log(`step ${step++} - start`);
   await page.waitForSelector('[data-qa-id="signIn--email"]');
@@ -36,7 +37,8 @@ async function main() {
 
   await delay(2000);
   console.log(`step ${step++} - how plex works`);
-  // await delay(500000);
+  await delay(4000);
+  await page.reload();
   await page.waitForSelector('[data-subset="setupLoading"]');
   await page.click('[data-subset="setupLoading"]');
   await delay(4000);

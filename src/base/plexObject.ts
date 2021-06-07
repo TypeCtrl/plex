@@ -59,7 +59,7 @@ export abstract class PlexObject {
     if (detailsKey && this._INCLUDES !== undefined) {
       const params = new URLSearchParams();
       for (const [k, v] of Object.entries(this._INCLUDES)) {
-        let value = args[k] ?? v;
+        const value = args[k] ?? v;
         if (![false, 0, '0'].includes(value)) {
           params.set(k, (value === true ? 1 : value).toString());
         }

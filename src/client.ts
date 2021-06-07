@@ -1,9 +1,10 @@
-import got from 'got';
 import { URL, URLSearchParams } from 'url';
 
+import got from 'got';
+
+import { Player } from './client.types';
 import { BASE_HEADERS, TIMEOUT } from './config';
 import { MediaContainer } from './util';
-import { Player } from './client.types';
 
 export interface PlexOptions {
   /** (:class:`~plexapi.server.PlexServer`): PlexServer this client is connected to (optional). */

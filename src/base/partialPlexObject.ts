@@ -1,9 +1,10 @@
 import { URLSearchParams } from 'url';
 
-import { PlexObject } from './plexObject';
 import { SearchResult, searchType } from '../search';
-import { getAgentIdentifier, ltrim, MediaContainer, tagHelper } from '../util';
 import { MatchSearchResult } from '../search.types';
+import { getAgentIdentifier, ltrim, MediaContainer, tagHelper } from '../util';
+
+import { PlexObject } from './plexObject';
 
 export abstract class PartialPlexObject extends PlexObject {
   ratingKey?: string;

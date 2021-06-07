@@ -1,22 +1,23 @@
-import { Class } from 'type-fest';
 import { URLSearchParams } from 'url';
 
-import type { PlexServer } from './server';
-import {
-  LibraryRootResponse,
-  SectionsResponse,
-  SectionsDirectory,
-  Location,
-  CollectionData,
-} from './library.types';
-import { MediaContainer } from './util';
-import { PlexObject } from './base/plexObject';
-import { Movie, VideoType, Show } from './video';
-import { fetchItem, fetchItems } from './baseFunctionality';
-import { SearchResult } from './search.types';
-import { Agent, searchType, SEARCHTYPES } from './search';
-import { Playlist } from './playlist';
+import { Class } from 'type-fest';
+
 import { PartialPlexObject } from './base/partialPlexObject';
+import { PlexObject } from './base/plexObject';
+import { fetchItem, fetchItems } from './baseFunctionality';
+import {
+  CollectionData,
+  LibraryRootResponse,
+  Location,
+  SectionsDirectory,
+  SectionsResponse,
+} from './library.types';
+import { Playlist } from './playlist';
+import { Agent, searchType, SEARCHTYPES } from './search';
+import { SearchResult } from './search.types';
+import type { PlexServer } from './server';
+import { MediaContainer } from './util';
+import { Movie, Show, VideoType } from './video';
 
 export type Section = MovieSection | ShowSection;
 

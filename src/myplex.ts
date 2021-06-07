@@ -1,12 +1,13 @@
-import got from 'got';
 import { URL, URLSearchParams } from 'url';
-import pAny from 'p-any';
 
-import { TIMEOUT, BASE_HEADERS } from './config';
-import { UserResponse, ResourcesResponse, Connection, Device } from './myplex.types';
-import { PlexServer } from './server';
-import { PlexObject } from './base/plexObject';
+import got from 'got';
+import pAny from 'p-any';
 import { parseStringPromise } from 'xml2js';
+
+import { PlexObject } from './base/plexObject';
+import { BASE_HEADERS, TIMEOUT } from './config';
+import { Connection, Device, ResourcesResponse, UserResponse } from './myplex.types';
+import { PlexServer } from './server';
 import { MediaContainer } from './util';
 
 /**

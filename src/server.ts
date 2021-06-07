@@ -1,21 +1,22 @@
-import got from 'got';
 import { URL, URLSearchParams } from 'url';
 
-import { TIMEOUT, BASE_HEADERS, X_PLEX_CONTAINER_SIZE } from './config';
+import got from 'got';
+
+import { fetchItem, fetchItems } from './baseFunctionality';
+import { PlexClient } from './client';
+import { BASE_HEADERS, TIMEOUT, X_PLEX_CONTAINER_SIZE } from './config';
+import { Hub, Library } from './library';
+import { LibraryRootResponse } from './library.types';
+import { Optimized } from './media';
+import { MyPlexAccount } from './myplex';
+import { Agent, SEARCHTYPES } from './search';
 import {
-  ServerRootResponse,
+  ConnectionInfo,
   HistoryMediaContainer,
   HistoryMetadatum,
-  ConnectionInfo,
+  ServerRootResponse,
 } from './server.types';
-import { Library, Hub } from './library';
 import { MediaContainer } from './util';
-import { LibraryRootResponse } from './library.types';
-import { fetchItems, fetchItem } from './baseFunctionality';
-import { Optimized } from './media';
-import { Agent, SEARCHTYPES } from './search';
-import { PlexClient } from './client';
-import { MyPlexAccount } from './myplex';
 
 /**
  * This is the main entry point to interacting with a Plex server. It allows you to
@@ -367,17 +368,17 @@ export class PlexServer {
     const shouldFetchPorts = response.MediaContainer.Server.some(
       server => server.port === null || server.port === undefined,
     );
-    let ports: Record<string, string>;
+    let ports: Record<string, string> = {};
 
     if (shouldFetchPorts) {
       ports = await this._myPlexClientPorts();
     }
 
     for (const server of response.MediaContainer.Server) {
-      let port: number | string | undefined = server.port;
+      let { port } = server;
       if (!port) {
         // TODO: print warning about doing weird port stuff
-        port = ports!?.[server.machineIdentifier];
+        port = Number(ports?.[server.machineIdentifier]);
       }
 
       const baseurl = `http://${server.host}:${port}`;
@@ -486,7 +487,7 @@ export class PlexServer {
    * See python plex issue #126: Make PlexServer.clients() more user friendly.
    */
   private async _myPlexClientPorts(): Promise<Record<string, string>> {
-    let ports: Record<string, string> = {};
+    const ports: Record<string, string> = {};
     const account = this.myPlexAccount();
     const devices = await account.devices();
 

@@ -19,5 +19,5 @@ export abstract class Playable extends PartialPlexObject {
   /** (datetime): Datetime item was last viewed (history). */
   viewedAt: any;
   /** (int): Playlist item ID (only populated for :class:`~plexapi.playlist.Playlist` items). */
-  playlistItemID: any;
+  playlistItemID?: number;
 }

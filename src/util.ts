@@ -9,7 +9,7 @@ export interface MetadataContainer<T extends { Metadata: any }> {
 }
 
 export function rsplit(str: string, sep: string, maxsplit: number): string[] {
-  var split = str.split(sep);
+  const split = str.split(sep);
   return maxsplit ? [split.slice(0, -maxsplit).join(sep)].concat(split.slice(-maxsplit)) : split;
 }
 

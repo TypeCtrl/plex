@@ -1,4 +1,7 @@
 version: 2.1
+orbs:
+  node: circleci/node@4
+  codecov: codecov/codecov@1
 jobs:
   test:
     docker:
@@ -6,6 +9,7 @@ jobs:
       - image: scttcper/plex-with-media
     steps:
       - checkout
+      - node/install-packages
       - run:
           name: npm-install
           command: npm ci
@@ -26,22 +30,20 @@ jobs:
             JEST_JUNIT_OUTPUT_NAME: 'test-results.xml'
       - store_test_results:
           path: ./reports
-      - run:
-          name: codecov
-          command: bash <(curl -s https://codecov.io/bash)
+      - codecov/upload
   cleanup:
     docker:
-      - image: circleci/node:14-browsers
+      - image: cimg/node:current
     steps:
       - checkout
-      - run: npm ci
+      - node/install-packages
       - run: npm run test-cleanup
   release:
     docker:
-      - image: circleci/node:14
+      - image: cimg/node:current
     steps:
       - checkout
-      - run: npm ci
+      - node/install-packages
       - run: npx semantic-release
 
 workflows:

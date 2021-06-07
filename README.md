@@ -1,5 +1,9 @@
 # @ctrl/plex
 
+[![npm](https://badgen.net/npm/v/@ctrl/plex)](https://www.npmjs.com/package/@ctrl/plex)
+[![CircleCI](https://badgen.net/circleci/github/scttcper/plex)](https://circleci.com/gh/scttcper/plex)
+[![coverage](https://badgen.net/codecov/c/github/scttcper/plex)](https://codecov.io/gh/scttcper/plex)
+
 > A TypeScript [Plex](https://www.plex.tv/) API client based on [pkkid/python-plexapi](https://github.com/pkkid/python-plexapi)
 
 ### Install

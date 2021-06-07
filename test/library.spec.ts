@@ -1,6 +1,7 @@
-import { describe, expect, it, beforeAll } from '@jest/globals';
+import { beforeAll, describe, expect, it } from '@jest/globals';
 
-import { PlexServer, MovieSection, ShowSection, Movie } from '../src';
+import { Movie, MovieSection, PlexServer, ShowSection } from '../src';
+
 import { createClient } from './test-client';
 
 describe('Library', () => {

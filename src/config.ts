@@ -1,5 +1,6 @@
 import os from 'os';
-import { parseMAC, getMAC } from '@ctrl/mac-address';
+
+import { getMAC, parseMAC } from '@ctrl/mac-address';
 
 // TODO: Load User Defined Config
 // const DEFAULT_CONFIG_PATH = os.path.expanduser('~/.config/plexapi/config.ini');

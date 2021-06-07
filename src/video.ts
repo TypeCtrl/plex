@@ -3,21 +3,21 @@ import { URL } from 'url';
 import { Playable } from './base/playable';
 import { fetchItem, fetchItems } from './baseFunctionality';
 import { FullShowData, MovieData, ShowData } from './library.types';
-import { PlexServer } from './server';
 import {
-  Director,
-  Country,
-  Writer,
   Chapter,
   Collection,
+  Country,
+  Director,
   Genre,
-  Role,
-  Media,
-  Similar,
-  Producer,
   Marker,
+  Media,
+  Producer,
+  Role,
+  Similar,
+  Writer,
 } from './media';
-import { FullMovieResponse, ChapterSource, EpisodeMetadata } from './video.types';
+import { PlexServer } from './server';
+import { ChapterSource, EpisodeMetadata, FullMovieResponse } from './video.types';
 
 export type VideoType = Movie | Show;
 
@@ -108,22 +108,23 @@ abstract class Video extends Playable {
   }
 
   protected _loadData(data: MovieData | ShowData | EpisodeMetadata): void {
-    this.addedAt = new Date(data.addedAt * 1000);
-    this.librarySectionID = data.librarySectionID;
-    this.lastViewedAt = (data as MovieData).lastViewedAt
-      ? new Date((data as MovieData).lastViewedAt! * 1000)
-      : undefined;
-    this.updatedAt = (data as MovieData).lastViewedAt ? new Date(data.updatedAt * 1000) : undefined;
     this.key = data.key;
     this.ratingKey = data.ratingKey;
-    this.viewCount = (data as MovieData).viewCount ?? 0;
     this.title = data.title;
     this.summary = data.summary;
     this.thumb = data.thumb;
     this.title = data.title;
-    this.titleSort = (data as MovieData).titleSort ?? this.title;
     this.type = data.type;
+    this.librarySectionID = data.librarySectionID;
+    this.addedAt = new Date(data.addedAt * 1000);
+    this.lastViewedAt = (data as MovieData).lastViewedAt
+      ? new Date((data as MovieData).lastViewedAt! * 1000)
+      : undefined;
+    this.updatedAt = (data as MovieData).lastViewedAt ? new Date(data.updatedAt * 1000) : undefined;
+    this.viewCount = (data as MovieData).viewCount ?? 0;
+    this.titleSort = (data as MovieData).titleSort ?? this.title;
     this.viewCount = (data as MovieData).viewCount;
+    this.playlistItemID = (data as any).playlistItemID;
   }
 }
 
@@ -403,7 +404,7 @@ export class Season extends Video {
   }
 }
 
-class Episode extends Video {
+export class Episode extends Video {
   static TAG = 'Video';
   TYPE = 'episode';
   METADATA_TYPE = 'episode';
